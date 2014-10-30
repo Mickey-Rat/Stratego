@@ -218,9 +218,9 @@ public class stratego extends JFrame implements Runnable {
 //Calculate the width and height of each board square.
         int ydelta = getHeight2()/NUM_ROWS;
         int xdelta = getWidth2()/NUM_COLUMNS;
-//draw board        
-        g.drawImage(bg,getX(0),getY(0),
-                getWidth2(),getHeight2(),this);
+////draw board        
+//        g.drawImage(bg,getX(0),getY(0),
+//                getWidth2(),getHeight2(),this);
         
  //draw grid
         g.setColor(Color.black);
@@ -238,11 +238,6 @@ public class stratego extends JFrame implements Runnable {
         
 
 //Draw the piece.
-        
-        int xmult = (int)NUM_ROWS/2;
-        int ymult = (int)NUM_COLUMNS/2;
-        int xadd = 0;
-        int yadd = 0;
         for (int zi = 0; zi < NUM_ROWS; zi++)
         {
             for (int zx = 0; zx < NUM_COLUMNS; zx++)
@@ -250,51 +245,51 @@ public class stratego extends JFrame implements Runnable {
                 if (board[zi][zx]!=null){
                     //red drawings
                     if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redCommander,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redGeneral,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redLeutenant,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redCaptain,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redSergant,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redSergant,getX(zx * xdelta), getY(zi * ydelta),xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redGunny,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redScout,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redMiner,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redSpy,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redBomb,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
-                        g.drawImage(redFlag,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     
                     //blu drawings
                     if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluCommander,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluGeneral,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluLeutenant,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluCaptain,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluSergant,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluSergant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluGunny,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluScout,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluMiner,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluSpy,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluBomb,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
-                        g.drawImage(bluFlag,getX(zx * xdelta+xadd), getY(zi * ydelta+yadd), xdelta, ydelta, this);
+                        g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                 }   
             }
         }
