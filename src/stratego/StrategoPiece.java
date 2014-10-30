@@ -5,11 +5,13 @@ import java.awt.*;
 public class StrategoPiece {
     private Color color;
     private StrategoMovePiece unit = new StrategoMovePiece();
+    private boolean pickUp; 
     StrategoPiece(Color _color, int _unitNum)
     {
         color = _color;
         unit.setValue(_unitNum);
         unit.setColor(color);
+        pickUp = false;
     }
     public void setColor(Color _color)
     {
@@ -25,5 +27,11 @@ public class StrategoPiece {
     }
     public int getValue(){
         return(unit.getValue());
+    }
+    public void setPickedUp(boolean _pickUp){
+        pickUp=_pickUp;
+    }
+    public boolean getPickedUp(){
+        return(pickUp);
     }
 }

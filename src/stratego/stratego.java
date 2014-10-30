@@ -54,6 +54,8 @@ public class stratego extends JFrame implements Runnable {
     final int Spy = 9;
     final int Bomb = 10;
     final int Flag = 11;
+    int lastRow;
+    int lastCol;
     
     //red units
     Image redCommander;
@@ -139,7 +141,21 @@ public class stratego extends JFrame implements Runnable {
                     System.out.println("zcol: "+zcol);
                     System.out.println("zrow: "+zrow);
                     
-                    
+                    if(board[zcol][zrow]!=null)
+                    {
+                        if(board[zcol][zrow].getColor() == Color.red && player1Turn)
+                        {
+                            board[zcol][zrow].setPickedUp(true);
+                            lastCol = zcol;
+                            lastRow = zrow;
+                        }
+                        else if(board[lastCol][lastRow].getPickedUp())
+                        {
+                            board[zcol][zrow] = board[lastCol][lastRow];
+                            board[lastCol][lastRow].setPickedUp(false);
+                            board[lastCol][lastRow] = null;
+                        }
+                    }
                 }
 
                 if (e.BUTTON3 == e.getButton()) {
@@ -359,7 +375,22 @@ public class stratego extends JFrame implements Runnable {
             {
                 if (board[zi][zx]==null)
                 {
-                    
+                    if(bombs<3){
+                        int x = (int)(Math.random() * 2);
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(Math.random() * 4);
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Bomb);
+                                keepLooping = false;
+                            }
+                        }
+                        bombs++;
+                    }
                 }
             }
         }
@@ -391,6 +422,8 @@ public class stratego extends JFrame implements Runnable {
         bluFlag = Toolkit.getDefaultToolkit().getImage("./blu_flag.GIF");
         
         player1Turn=true;
+        lastRow=0;
+        lastCol=0;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
