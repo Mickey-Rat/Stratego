@@ -327,36 +327,26 @@ public class stratego extends JFrame implements Runnable {
         
         
         //Team RED's Pieces
-        int flags = 0;
         int bombs = 0;
+        board[0][0] = new StrategoPiece(Color.red,Flag);
         for (int zi = 0;zi<2;zi++)
         {
             for (int zx = 0;zx<NUM_COLUMNS;zx++)
             {
                 if (board[zi][zx]==null)
                 {
-                    int pickPiece = (int)(Math.random()*numUnits+1);
-                    if(zi==0 && pickPiece==Flag && flags!=0)
-                        pickPiece = (int)(Math.random()*numUnits);
-                    if(zi==0 && flags==0 && pickPiece==Flag){
-                        board[zi][zx] = new StrategoPiece(Color.red,Flag);
-                        flags++;
-                    }
-                    if(zi==0 && flags==0 && zx==NUM_COLUMNS-1){
-                        board[zi][zx] = new StrategoPiece(Color.red,Flag);
-                        flags++;
-                    }
+                    
                     if(bombs<3){
                         int x = (int)(Math.random() * 2);
                         int y = (int)(Math.random() * NUM_ROWS);
-                        board[x][y] = new StrategoPiece(Color.red,Bomb);
                         boolean keepLooping = true;
                         while(keepLooping){
-                            if(board[x][y] == board[zi][zx]){
-                                x = (int)(Math.random() * 2);
+                            if(board[x][y] != null){
+                                x = (int)(Math.random() * 4);
                                 y = (int)(Math.random() * NUM_ROWS);
                             }
                             else{
+                                board[x][y] = new StrategoPiece(Color.red,Bomb);
                                 keepLooping = false;
                             }
                         }
