@@ -32,11 +32,55 @@ public class stratego extends JFrame implements Runnable {
     int ysize = -1;
     Image image;
     Graphics2D g;
+    static Image icon = Toolkit.getDefaultToolkit().getImage("./flag.GIF");
+    static Image bg = Toolkit.getDefaultToolkit().getImage("./board.JPG");
     
     boolean player1Turn;
     final static int NUM_ROWS = 10;
     final static int NUM_COLUMNS = 10;  
     StrategoPiece board[][] = new StrategoPiece[NUM_ROWS][NUM_COLUMNS];
+    
+    //unit values
+    final int numUnits = 11;
+    final int UnitValue[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    final int Commander = 1;
+    final int General = 2;
+    final int Leutenant = 3;
+    final int Captain = 4;
+    final int Sergant = 5;
+    final int Gunny = 6;
+    final int Scout = 7;
+    final int Miner = 8;
+    final int Spy = 9;
+    final int Bomb = 10;
+    final int Flag = 11;
+    
+    //red units
+    Image redCommander;
+    Image redGeneral;
+    Image redLeutenant;
+    Image redCaptain;
+    Image redSergant;
+    Image redGunny;
+    Image redScout;
+    Image redMiner;
+    Image redSpy;
+    Image redBomb;
+    Image redFlag;
+    
+    //blu units
+    Image bluCommander;
+    Image bluGeneral;
+    Image bluLeutenant;
+    Image bluCaptain;
+    Image bluSergant;
+    Image bluGunny;
+    Image bluScout;
+    Image bluMiner;
+    Image bluSpy;
+    Image bluBomb;
+    Image bluFlag;
+    
     
     public static void main(String[] args) {
         stratego frame = new stratego();
@@ -44,6 +88,7 @@ public class stratego extends JFrame implements Runnable {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setTitle("Andvance and Conquer");
+        frame.setIconImage(icon);
     }
 
     public stratego() {
@@ -84,14 +129,15 @@ public class stratego extends JFrame implements Runnable {
                     {
                         if (ypos < getY((zrow+1)*ydelta))
                         {
-                            keepGoing = false;
+                            loop = false;
                         }   
                       else
                             zrow++;
                     
                     }
                     
-                    
+                    System.out.println("zcol: "+zcol);
+                    System.out.println("zrow: "+zrow);
                     
                     
                 }
@@ -152,16 +198,16 @@ public class stratego extends JFrame implements Runnable {
         }
 //fill background
         
-        g.setColor(Color.cyan);
+        g.setColor(Color.darkGray);
         g.fillRect(0, 0, xsize, ysize);
 
         int x[] = {getX(0), getX(getWidth2()), getX(getWidth2()), getX(0), getX(0)};
         int y[] = {getY(0), getY(0), getY(getHeight2()), getY(getHeight2()), getY(0)};
 //fill border
-        g.setColor(Color.white);
+        g.setColor(Color.lightGray);
         g.fillPolygon(x, y, 4);
 // draw border
-        g.setColor(Color.red);
+        g.setColor(Color.black);
         g.drawPolyline(x, y, 5);
 
         if (animateFirstTime) {
@@ -172,6 +218,9 @@ public class stratego extends JFrame implements Runnable {
 //Calculate the width and height of each board square.
         int ydelta = getHeight2()/NUM_ROWS;
         int xdelta = getWidth2()/NUM_COLUMNS;
+        
+        g.drawImage(bg,getX(0),getY(0),
+                getWidth2(),getHeight2(),this);
         
  //draw grid
         g.setColor(Color.black);
@@ -194,9 +243,54 @@ public class stratego extends JFrame implements Runnable {
             for (int zx = 0; zx < NUM_COLUMNS; zx++)
             {
                 if (board[zi][zx]!=null){
-                    g.setColor(board[zi][zx].getColor());
-                    g.fillOval(getX(zx * xdelta), (int) getY(zi * ydelta), xdelta, ydelta);
-                }
+                    //red drawings
+                    if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redSergant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
+                        g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    
+                    //blu drawings
+                    if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluSergant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
+                        g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                }   
             }
         }
                         
@@ -226,7 +320,86 @@ public class stratego extends JFrame implements Runnable {
                 board[zi][zx] = null;
             }
         }
-//        board[3][2] = new Piece(Color.red);
+        
+        
+        //Team RED's Pieces
+        int flags = 0;
+        int bombs = 0;
+        for (int zi = 0;zi<2;zi++)
+        {
+            for (int zx = 0;zx<NUM_COLUMNS;zx++)
+            {
+                if (board[zi][zx]==null)
+                {
+                    int pickPiece = (int)(Math.random()*numUnits+1);
+                    if(zi==0 && pickPiece==Flag && flags!=0)
+                        pickPiece = (int)(Math.random()*numUnits);
+                    if(zi==0 && flags==0 && pickPiece==Flag){
+                        board[zi][zx] = new StrategoPiece(Color.red,Flag);
+                        flags++;
+                    }
+                    if(zi==0 && flags==0 && zx==NUM_COLUMNS-1){
+                        board[zi][zx] = new StrategoPiece(Color.red,Flag);
+                        flags++;
+                    }
+                    if(bombs<3){
+                        int x = (int)(Math.random() * 2);
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        board[x][y] = new StrategoPiece(Color.red,Bomb);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] == board[zi][zx]){
+                                x = (int)(Math.random() * 2);
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                keepLooping = false;
+                            }
+                        }
+                        bombs++;
+                    }
+                }
+            }
+        }
+        
+        //Team BLU's Pieces
+        for (int zi = NUM_ROWS-1;zi>NUM_ROWS-3;zi--)
+        {
+            for (int zx = 0;zx<NUM_COLUMNS;zx++)
+            {
+                if (board[zi][zx]==null)
+                {
+                    
+                }
+            }
+        }
+        //red images
+        redCommander = Toolkit.getDefaultToolkit().getImage("./red_commander.GIF");
+        redGeneral = Toolkit.getDefaultToolkit().getImage("./red_general.GIF");
+        redLeutenant = Toolkit.getDefaultToolkit().getImage("./red_Leutennant.GIF");
+        redCaptain = Toolkit.getDefaultToolkit().getImage("./red_captain.GIF");
+        redSergant = Toolkit.getDefaultToolkit().getImage("./red_sergant.GIF");
+        redGunny = Toolkit.getDefaultToolkit().getImage("./red_gunny.GIF");
+        redScout = Toolkit.getDefaultToolkit().getImage("./red_private.GIF");
+        redMiner = Toolkit.getDefaultToolkit().getImage("./red_miner.GIF");
+        redSpy = Toolkit.getDefaultToolkit().getImage("./red_spy.GIF");
+        redBomb = Toolkit.getDefaultToolkit().getImage("./red_bomb.GIF");
+        redFlag = Toolkit.getDefaultToolkit().getImage("./red_flag.GIF");
+        
+        
+        //blu images
+        bluCommander = Toolkit.getDefaultToolkit().getImage("./blu_commander.GIF");
+        bluGeneral = Toolkit.getDefaultToolkit().getImage("./blu_general.GIF");
+        bluLeutenant = Toolkit.getDefaultToolkit().getImage("./blu_Leutennant.GIF");
+        bluCaptain = Toolkit.getDefaultToolkit().getImage("./blu_captain.GIF");
+        bluSergant = Toolkit.getDefaultToolkit().getImage("./blu_sergant.GIF");
+        bluGunny = Toolkit.getDefaultToolkit().getImage("./blu_gunny.GIF");
+        bluScout = Toolkit.getDefaultToolkit().getImage("./blu_private.GIF");
+        bluMiner = Toolkit.getDefaultToolkit().getImage("./blu_miner.GIF");
+        bluSpy = Toolkit.getDefaultToolkit().getImage("./blu_spy.GIF");
+        bluBomb = Toolkit.getDefaultToolkit().getImage("./blu_bomb.GIF");
+        bluFlag = Toolkit.getDefaultToolkit().getImage("./blu_flag.GIF");
+        
         player1Turn=true;
     }
 /////////////////////////////////////////////////////////////////////////
