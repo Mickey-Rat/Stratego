@@ -318,7 +318,13 @@ public class stratego extends JFrame implements Runnable {
                 }   
             }
         }
-                        
+        for (int zi = 0; zi < NUM_ROWS; zi++)
+        {
+            for (int zx = 0; zx < NUM_COLUMNS; zx++)
+            {
+                
+            }
+        }        
         gOld.drawImage(image, 0, 0, null);
     }
 ////////////////////////////////////////////////////////////////////////////
