@@ -137,25 +137,34 @@ public class stratego extends JFrame implements Runnable {
                             zrow++;
                     
                     }
+                    if(board[lastRow][lastCol].getPickedUp())
+                    {
+                        board[zrow][zcol] = board[lastRow][lastCol];
+                        board[lastRow][lastCol] = null;
+                        lastRow=0;
+                        lastCol=0;
+                        player1Turn=!player1Turn;
+                    }
                     
                     System.out.println("zcol: "+zcol);
                     System.out.println("zrow: "+zrow);
                     
-                    if(board[zcol][zrow]!=null)
+                    
+                    if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn)
                     {
-                        if(board[zcol][zrow].getColor() == Color.red && player1Turn)
-                        {
-                            board[zcol][zrow].setPickedUp(true);
-                            lastCol = zcol;
-                            lastRow = zrow;
-                        }
-                        else if(board[lastCol][lastRow].getPickedUp())
-                        {
-                            board[zcol][zrow] = board[lastCol][lastRow];
-                            board[lastCol][lastRow].setPickedUp(false);
-                            board[lastCol][lastRow] = null;
-                        }
+                        board[zrow][zcol].setPickedUp(true);
+                        lastCol = zcol;
+                        lastRow = zrow;
                     }
+                    if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn)
+                    {
+                        board[zrow][zcol].setPickedUp(true);
+                        lastCol = zcol;
+                        lastRow = zrow;
+                    }
+                    
+                    
+                    
                 }
 
                 if (e.BUTTON3 == e.getButton()) {
@@ -167,7 +176,7 @@ public class stratego extends JFrame implements Runnable {
 
     addMouseMotionListener(new MouseMotionAdapter() {
       public void mouseDragged(MouseEvent e) {
-
+                    
         repaint();
       }
     });
@@ -354,7 +363,7 @@ public class stratego extends JFrame implements Runnable {
                         boolean keepLooping = true;
                         while(keepLooping){
                             if(board[x][y] != null){
-                                x = (int)(Math.random() * 4);
+                                x = (int)(Math.random() * 2);
                                 y = (int)(Math.random() * NUM_ROWS);
                             }
                             else{
@@ -375,22 +384,7 @@ public class stratego extends JFrame implements Runnable {
             {
                 if (board[zi][zx]==null)
                 {
-                    if(bombs<3){
-                        int x = (int)(Math.random() * 2);
-                        int y = (int)(Math.random() * NUM_ROWS);
-                        boolean keepLooping = true;
-                        while(keepLooping){
-                            if(board[x][y] != null){
-                                x = (int)(Math.random() * 4);
-                                y = (int)(Math.random() * NUM_ROWS);
-                            }
-                            else{
-                                board[x][y] = new StrategoPiece(Color.blue,Bomb);
-                                keepLooping = false;
-                            }
-                        }
-                        bombs++;
-                    }
+                    
                 }
             }
         }
