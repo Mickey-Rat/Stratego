@@ -137,27 +137,16 @@ public class stratego extends JFrame implements Runnable {
                             zrow++;
                     
                     }
-                    if(board[lastRow][lastCol]!=null && board[lastRow][lastCol].getPickedUp())
+                    if(board[lastRow][lastCol]!=null)
                     {
-                        if(board[zrow][zcol]!=null){
-                            if(board[zrow][zcol].getColor()!=board[lastRow][lastCol].getColor())
-                            {
+                        if(board[zrow][zcol]==null){
+                            if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
                                 board[zrow][zcol] = board[lastRow][lastCol];
                                 board[lastRow][lastCol] = null;
                                 lastRow=0;
                                 lastCol=0;
-                                player1Turn=!player1Turn; 
+                                //player1Turn=!player1Turn; 
                             }
-                        }
-                        else
-                        {
-                            
-                            board[zrow][zcol] = board[lastRow][lastCol];
-                            board[lastRow][lastCol] = null;
-                            lastRow=0;
-                            lastCol=0;
-                            player1Turn=!player1Turn;
-
                         }
                     }
                     
