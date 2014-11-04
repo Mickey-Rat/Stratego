@@ -139,7 +139,7 @@ public class stratego extends JFrame implements Runnable {
                     }
                     if(board[lastRow][lastCol]!=null)
                     {
-                        if(board[zrow][zcol]==null){
+                        if(board[zrow][zcol]==null || board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor()){
                             if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
                                 board[zrow][zcol] = board[lastRow][lastCol];
                                 board[lastRow][lastCol] = null;
