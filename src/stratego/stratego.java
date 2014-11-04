@@ -156,11 +156,13 @@ public class stratego extends JFrame implements Runnable {
                     
                     if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb)
                     {
+                        board[zrow][zcol].setPickedUp(true);
                         lastCol = zcol;
                         lastRow = zrow;
                     }
                     if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn && board[zrow][zcol].getValue() != Bomb)
                     {
+                        board[zrow][zcol].setPickedUp(true);
                         lastCol = zcol;
                         lastRow = zrow;
                     }
@@ -535,7 +537,7 @@ public class stratego extends JFrame implements Runnable {
         }
         
         //Team BLU's Pieces
-        bombs = 0;
+        int bombz = 0;
         commander = 0;
         general = 0;
         leutenant = 0;
@@ -552,7 +554,7 @@ public class stratego extends JFrame implements Runnable {
             {
                 if (board[zi][zx]==null)
                 {
-                    if(bombs<6){
+                    if(bombz<7){
                         int x = (int)(NUM_COLUMNS-(Math.random() * 2));
                         int y = (int)(Math.random() * NUM_ROWS);
                         boolean keepLooping = true;
@@ -566,7 +568,7 @@ public class stratego extends JFrame implements Runnable {
                                 keepLooping = false;
                             }
                         }
-                        bombs++;
+                        bombz++;
                     }
                     if(commander<1){
                         int x = (int)(NUM_COLUMNS-(Math.random() * 2));
@@ -664,7 +666,7 @@ public class stratego extends JFrame implements Runnable {
                         }
                         gunny++;
                     }
-                    if(scoutz<12){
+                    if(scoutz<11){
                         int x = (int)(NUM_COLUMNS-(Math.random() * 2));
                         int y = (int)(Math.random() * NUM_ROWS);
                         boolean keepLooping = true;
