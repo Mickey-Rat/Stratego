@@ -156,13 +156,11 @@ public class stratego extends JFrame implements Runnable {
                     
                     if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb)
                     {
-                        board[zrow][zcol].setPickedUp(true);
                         lastCol = zcol;
                         lastRow = zrow;
                     }
                     if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn && board[zrow][zcol].getValue() != Bomb)
                     {
-                        board[zrow][zcol].setPickedUp(true);
                         lastCol = zcol;
                         lastRow = zrow;
                     }
@@ -537,7 +535,7 @@ public class stratego extends JFrame implements Runnable {
         }
         
         //Team BLU's Pieces
-        int bombz = 0;
+        bombs = 0;
         commander = 0;
         general = 0;
         leutenant = 0;
@@ -554,7 +552,7 @@ public class stratego extends JFrame implements Runnable {
             {
                 if (board[zi][zx]==null)
                 {
-                    if(bombz<7){
+                    if(bombs<6){
                         int x = (int)(NUM_COLUMNS-(Math.random() * 2));
                         int y = (int)(Math.random() * NUM_ROWS);
                         boolean keepLooping = true;
@@ -666,7 +664,7 @@ public class stratego extends JFrame implements Runnable {
                         }
                         gunny++;
                     }
-                    if(scoutz<11){
+                    if(scoutz<12){
                         int x = (int)(NUM_COLUMNS-(Math.random() * 2));
                         int y = (int)(Math.random() * NUM_ROWS);
                         boolean keepLooping = true;
@@ -680,7 +678,7 @@ public class stratego extends JFrame implements Runnable {
                                 keepLooping = false;
                             }
                         }
-                        scout++;
+                        scoutz++;
                     }
                     if(miner<5){
                         int x = (int)(NUM_COLUMNS-(Math.random() * 2));
