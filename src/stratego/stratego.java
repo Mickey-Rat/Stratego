@@ -485,7 +485,7 @@ public class stratego extends JFrame implements Runnable {
                     }
                     gunny++;
                 }
-                if(scout<4){
+                if(scout<12){
                     int x = (int)(Math.random() * 2);
                     int y = (int)(Math.random() * NUM_ROWS);
                     boolean keepLooping = true;
@@ -537,13 +537,183 @@ public class stratego extends JFrame implements Runnable {
         }
         
         //Team BLU's Pieces
+        int bombz = 0;
+        commander = 0;
+        general = 0;
+        leutenant = 0;
+        captain = 0;
+        sergant = 0;
+        gunny = 0;
+        int scoutz = 0;
+        miner = 0;
+        spy = 0;
+        board[9][9] = new StrategoPiece(Color.blue,Flag);
         for (int zi = NUM_ROWS-1;zi>NUM_ROWS-3;zi--)
         {
             for (int zx = 0;zx<NUM_COLUMNS;zx++)
             {
                 if (board[zi][zx]==null)
                 {
-                    
+                    if(bombz<7){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Bomb);
+                                keepLooping = false;
+                            }
+                        }
+                        bombs++;
+                    }
+                    if(commander<1){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Commander);
+                                keepLooping = false;
+                            }
+                        }
+                        commander++;
+                    }
+                    if(general<1){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,General);
+                                keepLooping = false;
+                            }
+                        }
+                        general++;
+                    }
+                    if(leutenant<2){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Leutenant);
+                                keepLooping = false;
+                            }
+                        }
+                        leutenant++;
+                    }
+                    if(captain<3){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Captain);
+                                keepLooping = false;
+                            }
+                        }
+                        captain++;
+                    }
+                    if(sergant<4){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Sergant);
+                                keepLooping = false;
+                            }
+                        }
+                        sergant++;
+                    }
+                    if(gunny<4){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Gunny);
+                                keepLooping = false;
+                            }
+                        }
+                        gunny++;
+                    }
+                    if(scoutz<11){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Scout);
+                                keepLooping = false;
+                            }
+                        }
+                        scout++;
+                    }
+                    if(miner<5){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Miner);
+                                keepLooping = false;
+                            }
+                        }
+                        miner++;
+                    }
+                    if(spy<1){
+                        int x = (int)(NUM_COLUMNS-(Math.random() * 2));
+                        int y = (int)(Math.random() * NUM_ROWS);
+                        boolean keepLooping = true;
+                        while(keepLooping){
+                            if(board[x][y] != null){
+                                x = (int)(NUM_COLUMNS-(Math.random() * 4));
+                                y = (int)(Math.random() * NUM_ROWS);
+                            }
+                            else{
+                                board[x][y] = new StrategoPiece(Color.blue,Spy);
+                                keepLooping = false;
+                            }
+                        }
+                        spy++;
+                    }
                 }
             }
         }
@@ -566,7 +736,7 @@ public class stratego extends JFrame implements Runnable {
         bluGeneral = Toolkit.getDefaultToolkit().getImage("./blu_general.GIF");
         bluLeutenant = Toolkit.getDefaultToolkit().getImage("./blu_Leutennant.GIF");
         bluCaptain = Toolkit.getDefaultToolkit().getImage("./blu_captain.GIF");
-        bluSergant = Toolkit.getDefaultToolkit().getImage("./blu_sergant.GIF");
+        bluSergant = Toolkit.getDefaultToolkit().getImage("./blu_sergeant.GIF");
         bluGunny = Toolkit.getDefaultToolkit().getImage("./blu_gunny.GIF");
         bluScout = Toolkit.getDefaultToolkit().getImage("./blu_private.GIF");
         bluMiner = Toolkit.getDefaultToolkit().getImage("./blu_miner.GIF");
