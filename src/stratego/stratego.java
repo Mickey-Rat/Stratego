@@ -145,7 +145,7 @@ public class stratego extends JFrame implements Runnable {
                                 board[lastRow][lastCol] = null;
                                 lastRow=0;
                                 lastCol=0;
-                                //player1Turn=!player1Turn; 
+                                player1Turn=!player1Turn; 
                             }
                         }
                     }
