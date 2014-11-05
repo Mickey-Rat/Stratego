@@ -69,6 +69,7 @@ public class stratego extends JFrame implements Runnable {
     Image redSpy;
     Image redBomb;
     Image redFlag;
+    Image redTemplate;
     
     //blu units
     Image bluCommander;
@@ -82,6 +83,7 @@ public class stratego extends JFrame implements Runnable {
     Image bluSpy;
     Image bluBomb;
     Image bluFlag;
+    Image bluTemplate;
     
     
     public static void main(String[] args) {
@@ -272,6 +274,7 @@ public class stratego extends JFrame implements Runnable {
             for (int zx = 0; zx < NUM_COLUMNS; zx++)
             {
                 if (board[zi][zx]!=null){
+                    if(player1Turn){
                     //red drawings
                     if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
                         g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
@@ -295,8 +298,14 @@ public class stratego extends JFrame implements Runnable {
                         g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
                         g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    }
+                    else if (board[zi][zx].getColor()==Color.red){
+                        g.setColor(Color.red);
+                        g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    }
                     
                     //blu drawings
+                    if(!player1Turn){
                     if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
                         g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
@@ -319,16 +328,14 @@ public class stratego extends JFrame implements Runnable {
                         g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                     if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
                         g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    }
+                    else if (board[zi][zx].getColor()==Color.blue){
+                        g.setColor(Color.blue);
+                        g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                    }
                 }   
             }
-        }
-        for (int zi = 0; zi < NUM_ROWS; zi++)
-        {
-            for (int zx = 0; zx < NUM_COLUMNS; zx++)
-            {
-                
-            }
-        }        
+        }     
         gOld.drawImage(image, 0, 0, null);
     }
 ////////////////////////////////////////////////////////////////////////////
@@ -726,6 +733,7 @@ public class stratego extends JFrame implements Runnable {
         redSpy = Toolkit.getDefaultToolkit().getImage("./red_spy.GIF");
         redBomb = Toolkit.getDefaultToolkit().getImage("./red_bomb.GIF");
         redFlag = Toolkit.getDefaultToolkit().getImage("./red_flag.GIF");
+        redTemplate = Toolkit.getDefaultToolkit().getImage("./red_template.GIF");
         
         
         //blu images
@@ -740,6 +748,7 @@ public class stratego extends JFrame implements Runnable {
         bluSpy = Toolkit.getDefaultToolkit().getImage("./blu_spy.GIF");
         bluBomb = Toolkit.getDefaultToolkit().getImage("./blu_bomb.GIF");
         bluFlag = Toolkit.getDefaultToolkit().getImage("./blu_flag.GIF");
+        bluTemplate = Toolkit.getDefaultToolkit().getImage("./blu_template.GIF");
         
         player1Turn=true;
         lastRow=0;
