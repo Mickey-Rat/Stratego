@@ -154,7 +154,77 @@ public class stratego extends JFrame implements Runnable {
                     if(board[lastRow][lastCol]!=null)
                     {
                         if(board[zrow][zcol]==null || board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor()){
-                            if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
+                            if(board[lastRow][lastCol].getValue() == Scout){
+                                if(((zrow != lastRow && zcol == lastCol) || (zrow == lastRow && zcol != lastCol))){
+                                    int check;
+                                    int tempCheck;
+                                    if(zrow < lastRow){
+                                        check = lastRow - zrow;
+                                        tempCheck = 0;
+                                        for(int index = lastRow - 1;index < lastRow && index > zrow;index --){
+                                            if(board[index][zcol] == null){
+                                                tempCheck ++;
+                                            }
+                                        }
+                                        if(tempCheck == check - 1){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                        }
+                                    }
+                                    else if(zrow > lastRow){
+                                        check = zrow - lastRow;
+                                        tempCheck = 0;
+                                        for(int index = lastRow + 1;index > lastRow && index < zrow;index ++){
+                                            if(board[index][zcol] == null){
+                                                tempCheck ++;
+                                            }
+                                        }
+                                        if(tempCheck == check - 1){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                        }
+                                    }
+                                    else if(zcol < lastCol){
+                                        check = lastCol - zcol;
+                                        tempCheck = 0;
+                                        for(int index = lastCol - 1;index < lastCol && index > zcol;index --){
+                                            if(board[zrow][index] == null){
+                                                tempCheck ++;
+                                            }
+                                        }
+                                        if(tempCheck == check - 1){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                        }
+                                    }
+                                    else if(zcol > lastCol){
+                                        check = zcol - lastCol;
+                                        tempCheck = 0;
+                                        for(int index = lastCol + 1;index > lastCol && index < zcol;index ++){
+                                            if(board[zrow][index] == null){
+                                                tempCheck ++;
+                                            }
+                                        }
+                                        if(tempCheck == check - 1){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                        }
+                                    }
+                                }
+                            }
+                            else if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
                                 board[zrow][zcol] = board[lastRow][lastCol];
                                 board[lastRow][lastCol] = null;
                                 lastRow=0;
