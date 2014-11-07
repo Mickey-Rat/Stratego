@@ -34,6 +34,7 @@ public class stratego extends JFrame implements Runnable {
     Graphics2D g;
     static Image icon = Toolkit.getDefaultToolkit().getImage("./flag.GIF");
     static Image bg = Toolkit.getDefaultToolkit().getImage("./board 2.PNG");
+    static Image sc = Toolkit.getDefaultToolkit().getImage("./Start Screen.PNG");
     
     boolean player1Turn;
     boolean lastTurn;
@@ -102,6 +103,7 @@ public class stratego extends JFrame implements Runnable {
         frame.setVisible(true);
         frame.setTitle("Andvance and Conquer");
         frame.setIconImage(icon);
+        frame.setResizable(false);
     }
 
     public stratego() {
@@ -167,11 +169,44 @@ public class stratego extends JFrame implements Runnable {
                                             }
                                         }
                                         if(tempCheck == check - 1){
-                                            board[zrow][zcol] = board[lastRow][lastCol];
-                                            board[lastRow][lastCol] = null;
-                                            lastRow=0;
-                                            lastCol=0;
-                                            player1Turn=!player1Turn;
+                                                if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+                                                
+                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+
+
+                                            }
+                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    board[zrow][zcol]=null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                            else{
+                                                board[zrow][zcol] = board[lastRow][lastCol];
+                                                board[lastRow][lastCol] = null;
+                                                lastRow=0;
+                                                lastCol=0;
+                                                player1Turn=!player1Turn; 
+                                            }
                                         }
                                     }
                                     else if(zrow > lastRow){
@@ -183,11 +218,44 @@ public class stratego extends JFrame implements Runnable {
                                             }
                                         }
                                         if(tempCheck == check - 1){
-                                            board[zrow][zcol] = board[lastRow][lastCol];
-                                            board[lastRow][lastCol] = null;
-                                            lastRow=0;
-                                            lastCol=0;
-                                            player1Turn=!player1Turn;
+                                            if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+                                                
+                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+
+
+                                            }
+                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    board[zrow][zcol]=null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                            else{
+                                                board[zrow][zcol] = board[lastRow][lastCol];
+                                                board[lastRow][lastCol] = null;
+                                                lastRow=0;
+                                                lastCol=0;
+                                                player1Turn=!player1Turn; 
+                                            }
                                         }
                                     }
                                     else if(zcol < lastCol){
@@ -199,11 +267,44 @@ public class stratego extends JFrame implements Runnable {
                                             }
                                         }
                                         if(tempCheck == check - 1){
-                                            board[zrow][zcol] = board[lastRow][lastCol];
-                                            board[lastRow][lastCol] = null;
-                                            lastRow=0;
-                                            lastCol=0;
-                                            player1Turn=!player1Turn;
+                                            if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+                                                
+                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+
+
+                                            }
+                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    board[zrow][zcol]=null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                            else{
+                                                board[zrow][zcol] = board[lastRow][lastCol];
+                                                board[lastRow][lastCol] = null;
+                                                lastRow=0;
+                                                lastCol=0;
+                                                player1Turn=!player1Turn; 
+                                            }
                                         }
                                     }
                                     else if(zcol > lastCol){
@@ -215,21 +316,100 @@ public class stratego extends JFrame implements Runnable {
                                             }
                                         }
                                         if(tempCheck == check - 1){
-                                            board[zrow][zcol] = board[lastRow][lastCol];
-                                            board[lastRow][lastCol] = null;
-                                            lastRow=0;
-                                            lastCol=0;
-                                            player1Turn=!player1Turn;
+                                            if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+                                                
+                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                    board[lastRow][lastCol] = null; 
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+
+
+                                            }
+                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    board[lastRow][lastCol] = null; 
+                                                    board[zrow][zcol]=null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn;
+                                                }
+                                            else{
+                                                board[zrow][zcol] = board[lastRow][lastCol];
+                                                board[lastRow][lastCol] = null;
+                                                lastRow=0;
+                                                lastCol=0;
+                                                player1Turn=!player1Turn; 
+                                            }
                                         }
                                     }
                                 }
                             }
                             else if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
-                                board[zrow][zcol] = board[lastRow][lastCol];
-                                board[lastRow][lastCol] = null;
-                                lastRow=0;
-                                lastCol=0;
-                                player1Turn=!player1Turn; 
+                                if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+                                    if(board[zrow][zcol].getValue()==Commander && board[lastRow][lastCol].getValue()==Spy){
+                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                        board[lastRow][lastCol] = null;
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn;
+                                    }
+                                    else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                        board[lastRow][lastCol] = null;
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn;
+                                    }
+                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()==Miner){
+                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                        board[lastRow][lastCol] = null;
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn;
+                                    }
+                                    else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                        board[lastRow][lastCol] = null; 
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn;
+                                    }
+                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                        board[lastRow][lastCol] = null; 
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn;
+                                    }
+                                    
+                                    
+                                }
+                                else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                        board[lastRow][lastCol] = null; 
+                                        board[zrow][zcol]=null;
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn;
+                                    }
+                                else{
+                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                    board[lastRow][lastCol] = null;
+                                    lastRow=0;
+                                    lastCol=0;
+                                    player1Turn=!player1Turn; 
+                                }
                             }
                         }
                     }
@@ -374,7 +554,7 @@ public class stratego extends JFrame implements Runnable {
             {
                 if (board[zi][zx]!=null){
                     if(player1Turn==lastTurn){
-                        if(player1Turn){
+//                        if(player1Turn){
                         //red drawings
                         if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
                             g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
@@ -398,14 +578,14 @@ public class stratego extends JFrame implements Runnable {
                             g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                         if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
                             g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
-                        else if (board[zi][zx].getColor()==Color.red){
-                            g.setColor(board[zi][zx].getColor());
-                            g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
+//                        }
+//                        else if (board[zi][zx].getColor()==Color.red){
+//                            g.setColor(board[zi][zx].getColor());
+//                            g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+//                        }
 
                         //blu drawings
-                        if(!player1Turn){
+//                        if(!player1Turn){
                         if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
                             g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                         if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
@@ -428,11 +608,11 @@ public class stratego extends JFrame implements Runnable {
                             g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                         if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
                             g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
-                        else if (board[zi][zx].getColor()==Color.blue){
-                            g.setColor(board[zi][zx].getColor());
-                            g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
+//                        }
+//                        else if (board[zi][zx].getColor()==Color.blue){
+//                            g.setColor(board[zi][zx].getColor());
+//                            g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+//                        }
                         
                     }
                     else if (board[zi][zx].getColor()==Color.red){
@@ -466,6 +646,8 @@ public class stratego extends JFrame implements Runnable {
                 timeCount++;
                 font--;
         }
+//         g.drawImage(sc,getX(0),getY(0),
+//            getWidth2(),getHeight2(),this);
         gOld.drawImage(image, 0, 0, null);
     }
 ////////////////////////////////////////////////////////////////////////////
