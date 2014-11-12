@@ -4,13 +4,12 @@ import java.awt.*;
 /*This class will be responsible for the pieces, their values, and their classes(no atributes).*/
 public class StrategoPiece {
     private Color color;
-    private StrategoMovePiece unit = new StrategoMovePiece();
+    private int val;
     private boolean pickUp; 
     StrategoPiece(Color _color, int _unitNum)
     {
         color = _color;
-        unit.setValue(_unitNum);
-        unit.setColor(color);
+        val = _unitNum;
         pickUp = false;
     }
     public void setColor(Color _color)
@@ -19,14 +18,14 @@ public class StrategoPiece {
     }
     public void setValue(int _value)
     {
-        unit.setValue(_value);
+        val = _value;
     }
     public Color getColor()
     {
         return (color);
     }
     public int getValue(){
-        return(unit.getValue());
+        return(val);
     }
     public void setPickedUp(boolean _pickUp){
         pickUp=_pickUp;
