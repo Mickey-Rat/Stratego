@@ -554,7 +554,7 @@ public class stratego extends JFrame implements Runnable {
             {
                 if (board[zi][zx]!=null){
                     if(player1Turn==lastTurn){
-//                        if(player1Turn){
+                        if(player1Turn){
                         //red drawings
                         if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
                             g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
@@ -578,14 +578,14 @@ public class stratego extends JFrame implements Runnable {
                             g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                         if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
                             g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-//                        }
-//                        else if (board[zi][zx].getColor()==Color.red){
-//                            g.setColor(board[zi][zx].getColor());
-//                            g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-//                        }
+                        }
+                        else if (board[zi][zx].getColor()==Color.red){
+                            g.setColor(board[zi][zx].getColor());
+                            g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                        }
 
                         //blu drawings
-//                        if(!player1Turn){
+                        if(!player1Turn){
                         if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
                             g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                         if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
@@ -608,11 +608,11 @@ public class stratego extends JFrame implements Runnable {
                             g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
                         if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
                             g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-//                        }
-//                        else if (board[zi][zx].getColor()==Color.blue){
-//                            g.setColor(board[zi][zx].getColor());
-//                            g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-//                        }
+                        }
+                        else if (board[zi][zx].getColor()==Color.blue){
+                            g.setColor(board[zi][zx].getColor());
+                            g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                        }
                         
                     }
                     else if (board[zi][zx].getColor()==Color.red){
