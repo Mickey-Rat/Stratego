@@ -6,6 +6,7 @@ public class StrategoPiece {
     private Color color;
     private int val;
     private boolean pickUp; 
+    private boolean HasFlag;
     StrategoPiece(Color _color, int _unitNum)
     {
         color = _color;
@@ -32,5 +33,11 @@ public class StrategoPiece {
     }
     public boolean getPickedUp(){
         return(pickUp);
+    }
+    public void setHasFlag(boolean _hasflag){
+        HasFlag=_hasflag;
+    }
+    public boolean getHasFlag(){
+        return(HasFlag);
     }
 }

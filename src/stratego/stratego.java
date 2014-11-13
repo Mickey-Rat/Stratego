@@ -79,6 +79,8 @@ public class stratego extends JFrame implements Runnable {
     Image redBomb;
     Image redFlag;
     Image redTemplate;
+    int redFlagzi;
+    int redFlagzx;
     
     //blu units
     Image bluCommander;
@@ -93,6 +95,8 @@ public class stratego extends JFrame implements Runnable {
     Image bluBomb;
     Image bluFlag;
     Image bluTemplate;
+    int bluFlagzi;
+    int bluFlagzx;
     
     //soundsand stuff
     sound bgsound=null;
@@ -177,7 +181,23 @@ public class stratego extends JFrame implements Runnable {
                                             if(tempCheck == check - 1){
                                                     if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
 
-                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    if(board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor() && board[zrow][zcol].getValue() == Flag && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                        board[zrow][zcol].setHasFlag(true);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[zrow][zcol] = board[lastRow][lastCol];
                                                         board[lastRow][lastCol] = null;
                                                         lastRow=0;
@@ -186,6 +206,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -203,6 +230,17 @@ public class stratego extends JFrame implements Runnable {
 
                                                 }
                                                 else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    if(board[zrow][zcol].getHasFlag() || board[lastRow][lastCol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
                                                         board[lastRow][lastCol] = null; 
                                                         board[zrow][zcol]=null;
                                                         lastRow=0;
@@ -211,6 +249,14 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                 else{
+                                                    if(board[zrow][zcol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
+                                                    
                                                     board[zrow][zcol] = board[lastRow][lastCol];
                                                     board[lastRow][lastCol] = null;
                                                     lastRow=0;
@@ -231,7 +277,23 @@ public class stratego extends JFrame implements Runnable {
                                             if(tempCheck == check - 1){
                                                 if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
 
-                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    if(board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor() && board[zrow][zcol].getValue() == Flag && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                        board[zrow][zcol].setHasFlag(true);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[zrow][zcol] = board[lastRow][lastCol];
                                                         board[lastRow][lastCol] = null;
                                                         lastRow=0;
@@ -240,6 +302,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -247,6 +316,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -257,6 +333,17 @@ public class stratego extends JFrame implements Runnable {
 
                                                 }
                                                 else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                        if(board[zrow][zcol].getHasFlag() || board[lastRow][lastCol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
                                                         board[lastRow][lastCol] = null; 
                                                         board[zrow][zcol]=null;
                                                         lastRow=0;
@@ -265,6 +352,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                 else{
+                                                    if(board[zrow][zcol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
                                                     board[zrow][zcol] = board[lastRow][lastCol];
                                                     board[lastRow][lastCol] = null;
                                                     lastRow=0;
@@ -285,7 +379,23 @@ public class stratego extends JFrame implements Runnable {
                                             if(tempCheck == check - 1){
                                                 if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
 
-                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    if(board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor() && board[zrow][zcol].getValue() == Flag && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                        board[zrow][zcol].setHasFlag(true);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[zrow][zcol] = board[lastRow][lastCol];
                                                         board[lastRow][lastCol] = null;
                                                         lastRow=0;
@@ -294,6 +404,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -301,6 +418,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -311,6 +435,17 @@ public class stratego extends JFrame implements Runnable {
 
                                                 }
                                                 else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    if(board[zrow][zcol].getHasFlag() || board[lastRow][lastCol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
                                                         board[lastRow][lastCol] = null; 
                                                         board[zrow][zcol]=null;
                                                         lastRow=0;
@@ -319,6 +454,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                 else{
+                                                    if(board[zrow][zcol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
                                                     board[zrow][zcol] = board[lastRow][lastCol];
                                                     board[lastRow][lastCol] = null;
                                                     lastRow=0;
@@ -339,7 +481,23 @@ public class stratego extends JFrame implements Runnable {
                                             if(tempCheck == check - 1){
                                                 if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
 
-                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                    if(board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor() && board[zrow][zcol].getValue() == Flag && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                        board[zrow][zcol].setHasFlag(true);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[zrow][zcol] = board[lastRow][lastCol];
                                                         board[lastRow][lastCol] = null;
                                                         lastRow=0;
@@ -348,6 +506,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -355,6 +520,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                     else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                         board[lastRow][lastCol] = null; 
                                                         lastRow=0;
                                                         lastCol=0;
@@ -365,6 +537,17 @@ public class stratego extends JFrame implements Runnable {
 
                                                 }
                                                 else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                    if(board[zrow][zcol].getHasFlag() || board[lastRow][lastCol].getHasFlag())
+                                                    {
+                                                        if(board[zrow][zcol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[zrow][zcol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.red)
+                                                            board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                        if(board[lastRow][lastCol].getColor() == Color.blue)
+                                                            board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                    }
                                                         board[lastRow][lastCol] = null; 
                                                         board[zrow][zcol]=null;
                                                         lastRow=0;
@@ -373,6 +556,13 @@ public class stratego extends JFrame implements Runnable {
                                                         board[zrow][zcol].setPickedUp(false);
                                                     }
                                                 else{
+                                                    if(board[zrow][zcol].getHasFlag())
+                                                        {
+                                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                        }
                                                     board[zrow][zcol] = board[lastRow][lastCol];
                                                     board[lastRow][lastCol] = null;
                                                     lastRow=0;
@@ -386,7 +576,23 @@ public class stratego extends JFrame implements Runnable {
                                 }
                                 else if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
                                     if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
-                                        if(board[zrow][zcol].getValue()==Commander && board[lastRow][lastCol].getValue()==Spy){
+                                        if(board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor() && board[zrow][zcol].getValue() == Flag && board[zrow][zcol].getValue()!=Bomb){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
+                                            board[zrow][zcol].setHasFlag(true);
+                                        }
+                                        else if(board[zrow][zcol].getValue()==Commander && board[lastRow][lastCol].getValue()==Spy){
+                                            if(board[zrow][zcol].getHasFlag())
+                                            {
+                                                if(board[zrow][zcol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[zrow][zcol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                            }
                                             board[zrow][zcol] = board[lastRow][lastCol];
                                             board[lastRow][lastCol] = null;
                                             lastRow=0;
@@ -395,6 +601,13 @@ public class stratego extends JFrame implements Runnable {
                                             board[zrow][zcol].setPickedUp(false);
                                         }
                                         else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                            if(board[zrow][zcol].getHasFlag())
+                                            {
+                                                if(board[zrow][zcol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[zrow][zcol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                            }
                                             board[zrow][zcol] = board[lastRow][lastCol];
                                             board[lastRow][lastCol] = null;
                                             lastRow=0;
@@ -403,6 +616,13 @@ public class stratego extends JFrame implements Runnable {
                                             board[zrow][zcol].setPickedUp(false);
                                         }
                                         else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()==Miner){
+                                            if(board[zrow][zcol].getHasFlag())
+                                            {
+                                                if(board[zrow][zcol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[zrow][zcol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                            }
                                             board[zrow][zcol] = board[lastRow][lastCol];
                                             board[lastRow][lastCol] = null;
                                             lastRow=0;
@@ -411,6 +631,13 @@ public class stratego extends JFrame implements Runnable {
                                             board[zrow][zcol].setPickedUp(false);
                                         }
                                         else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                            if(board[zrow][zcol].getHasFlag())
+                                            {
+                                                if(board[zrow][zcol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[zrow][zcol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                            }
                                             board[lastRow][lastCol] = null; 
                                             lastRow=0;
                                             lastCol=0;
@@ -418,6 +645,13 @@ public class stratego extends JFrame implements Runnable {
                                             board[zrow][zcol].setPickedUp(false);
                                         }
                                         else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                            if(board[zrow][zcol].getHasFlag())
+                                            {
+                                                if(board[zrow][zcol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[zrow][zcol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                            }
                                             board[lastRow][lastCol] = null; 
                                             lastRow=0;
                                             lastCol=0;
@@ -428,6 +662,17 @@ public class stratego extends JFrame implements Runnable {
 
                                     }
                                     else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                        if(board[zrow][zcol].getHasFlag() || board[lastRow][lastCol].getHasFlag())
+                                            {
+                                                if(board[zrow][zcol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[zrow][zcol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                                if(board[lastRow][lastCol].getColor() == Color.red)
+                                                    board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                                if(board[lastRow][lastCol].getColor() == Color.blue)
+                                                    board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                            }
                                             board[lastRow][lastCol] = null; 
                                             board[zrow][zcol]=null;
                                             lastRow=0;
@@ -436,6 +681,13 @@ public class stratego extends JFrame implements Runnable {
                                             board[zrow][zcol].setPickedUp(false);
                                         }
                                     else{
+                                        if(board[zrow][zcol].getHasFlag())
+                                        {
+                                            if(board[zrow][zcol].getColor() == Color.red)
+                                                board[bluFlagzi][bluFlagzx] = new StrategoPiece(Color.blue,Flag);
+                                            if(board[zrow][zcol].getColor() == Color.blue)
+                                                board[redFlagzi][redFlagzx] = new StrategoPiece(Color.red,Flag);
+                                        }
                                         board[zrow][zcol] = board[lastRow][lastCol];
                                         board[lastRow][lastCol] = null;
                                         lastRow=0;
@@ -780,6 +1032,10 @@ public class stratego extends JFrame implements Runnable {
         start = true;
         help = false;
         pause = false;
+        redFlagzi=0;
+        redFlagzx=0;
+        bluFlagzi=0;
+        bluFlagzx=0;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
