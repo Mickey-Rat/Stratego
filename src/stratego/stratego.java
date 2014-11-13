@@ -35,6 +35,8 @@ public class stratego extends JFrame implements Runnable {
     static Image icon = Toolkit.getDefaultToolkit().getImage("./flag.GIF");
     static Image bg = Toolkit.getDefaultToolkit().getImage("./board 2.PNG");
     static Image sc = Toolkit.getDefaultToolkit().getImage("./Start Screen.PNG");
+    static Image helpBackround = Toolkit.getDefaultToolkit().getImage("./pigeonexplosion.GIF");
+    static Image helpMenu = Toolkit.getDefaultToolkit().getImage("./help menu.GIF");
     
     boolean player1Turn;
     boolean lastTurn;
@@ -92,8 +94,11 @@ public class stratego extends JFrame implements Runnable {
     Image bluFlag;
     Image bluTemplate;
     
-    //sounds
+    //soundsand stuff
     sound bgsound=null;
+    boolean start;
+    boolean help;
+    boolean pause;
     
     
     public static void main(String[] args) {
@@ -153,303 +158,332 @@ public class stratego extends JFrame implements Runnable {
                             zrow++;
                     
                     }
-                    if(board[lastRow][lastCol]!=null)
-                    {
-                        if(board[zrow][zcol]==null || board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor()){
-                            if(board[lastRow][lastCol].getValue() == Scout){
-                                if(((zrow != lastRow && zcol == lastCol) || (zrow == lastRow && zcol != lastCol))){
-                                    int check;
-                                    int tempCheck;
-                                    if(zrow < lastRow){
-                                        check = lastRow - zrow;
-                                        tempCheck = 0;
-                                        for(int index = lastRow - 1;index < lastRow && index > zrow;index --){
-                                            if(board[index][zcol] == null){
-                                                tempCheck ++;
+                    if(!start){
+                        if(board[lastRow][lastCol]!=null)
+                        {
+                            if(board[zrow][zcol]==null || board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor()){
+                                if(board[lastRow][lastCol].getValue() == Scout){
+                                    if(((zrow != lastRow && zcol == lastCol) || (zrow == lastRow && zcol != lastCol))){
+                                        int check;
+                                         int tempCheck;
+                                        if(zrow < lastRow){
+                                            check = lastRow - zrow;
+                                            tempCheck = 0;
+                                            for(int index = lastRow - 1;index < lastRow && index > zrow;index --){
+                                                if(board[index][zcol] == null){
+                                                    tempCheck ++;
+                                                }
+                                            }
+                                            if(tempCheck == check - 1){
+                                                    if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+
+                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+
+
+                                                }
+                                                else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        board[zrow][zcol]=null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                else{
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn; 
+                                                    board[zrow][zcol].setPickedUp(false);
+                                                }
                                             }
                                         }
-                                        if(tempCheck == check - 1){
+                                        else if(zrow > lastRow){
+                                            check = zrow - lastRow;
+                                            tempCheck = 0;
+                                            for(int index = lastRow + 1;index > lastRow && index < zrow;index ++){
+                                                if(board[index][zcol] == null){
+                                                    tempCheck ++;
+                                                }
+                                            }
+                                            if(tempCheck == check - 1){
                                                 if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
-                                                
-                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+
+                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+
+
+                                                }
+                                                else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        board[zrow][zcol]=null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                else{
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
+                                                    lastRow=0;
+                                                    lastCol=0;
+                                                    player1Turn=!player1Turn; 
+                                                    board[zrow][zcol].setPickedUp(false);
+                                                }
+                                            }
+                                        }
+                                        else if(zcol < lastCol){
+                                            check = lastCol - zcol;
+                                            tempCheck = 0;
+                                            for(int index = lastCol - 1;index < lastCol && index > zcol;index --){
+                                                if(board[zrow][index] == null){
+                                                    tempCheck ++;
+                                                }
+                                            }
+                                            if(tempCheck == check - 1){
+                                                if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+
+                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+
+
+                                                }
+                                                else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        board[zrow][zcol]=null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                else{
                                                     board[zrow][zcol] = board[lastRow][lastCol];
                                                     board[lastRow][lastCol] = null;
                                                     lastRow=0;
                                                     lastCol=0;
                                                     player1Turn=!player1Turn;
+                                                    board[zrow][zcol].setPickedUp(false);
                                                 }
-                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-
-
                                             }
-                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    board[zrow][zcol]=null;
+                                        }
+                                        else if(zcol > lastCol){
+                                            check = zcol - lastCol;
+                                            tempCheck = 0;
+                                            for(int index = lastCol + 1;index > lastCol && index < zcol;index ++){
+                                                if(board[zrow][index] == null){
+                                                    tempCheck ++;
+                                                }
+                                            }
+                                            if(tempCheck == check - 1){
+                                                if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+
+                                                    if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                                        board[lastRow][lastCol] = null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                                        board[lastRow][lastCol] = null; 
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+
+
+                                                }
+                                                else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                                        board[lastRow][lastCol] = null; 
+                                                        board[zrow][zcol]=null;
+                                                        lastRow=0;
+                                                        lastCol=0;
+                                                        player1Turn=!player1Turn;
+                                                        board[zrow][zcol].setPickedUp(false);
+                                                    }
+                                                else{
+                                                    board[zrow][zcol] = board[lastRow][lastCol];
+                                                    board[lastRow][lastCol] = null;
                                                     lastRow=0;
                                                     lastCol=0;
-                                                    player1Turn=!player1Turn;
+                                                    player1Turn=!player1Turn; 
+                                                    board[zrow][zcol].setPickedUp(false);
                                                 }
-                                            else{
-                                                board[zrow][zcol] = board[lastRow][lastCol];
-                                                board[lastRow][lastCol] = null;
-                                                lastRow=0;
-                                                lastCol=0;
-                                                player1Turn=!player1Turn; 
                                             }
                                         }
                                     }
-                                    else if(zrow > lastRow){
-                                        check = zrow - lastRow;
-                                        tempCheck = 0;
-                                        for(int index = lastRow + 1;index > lastRow && index < zrow;index ++){
-                                            if(board[index][zcol] == null){
-                                                tempCheck ++;
-                                            }
+                                }
+                                else if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
+                                    if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
+                                        if(board[zrow][zcol].getValue()==Commander && board[lastRow][lastCol].getValue()==Spy){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
                                         }
-                                        if(tempCheck == check - 1){
-                                            if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
-                                                
-                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
-                                                    board[zrow][zcol] = board[lastRow][lastCol];
-                                                    board[lastRow][lastCol] = null;
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
+                                        else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
+                                        }
+                                        else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()==Miner){
+                                            board[zrow][zcol] = board[lastRow][lastCol];
+                                            board[lastRow][lastCol] = null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
+                                        }
+                                        else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
+                                            board[lastRow][lastCol] = null; 
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
+                                        }
+                                        else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
+                                            board[lastRow][lastCol] = null; 
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
+                                        }
 
 
-                                            }
-                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    board[zrow][zcol]=null;
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                            else{
-                                                board[zrow][zcol] = board[lastRow][lastCol];
-                                                board[lastRow][lastCol] = null;
-                                                lastRow=0;
-                                                lastCol=0;
-                                                player1Turn=!player1Turn; 
-                                            }
-                                        }
                                     }
-                                    else if(zcol < lastCol){
-                                        check = lastCol - zcol;
-                                        tempCheck = 0;
-                                        for(int index = lastCol - 1;index < lastCol && index > zcol;index --){
-                                            if(board[zrow][index] == null){
-                                                tempCheck ++;
-                                            }
+                                    else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
+                                            board[lastRow][lastCol] = null; 
+                                            board[zrow][zcol]=null;
+                                            lastRow=0;
+                                            lastCol=0;
+                                            player1Turn=!player1Turn;
+                                            board[zrow][zcol].setPickedUp(false);
                                         }
-                                        if(tempCheck == check - 1){
-                                            if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
-                                                
-                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
-                                                    board[zrow][zcol] = board[lastRow][lastCol];
-                                                    board[lastRow][lastCol] = null;
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-
-
-                                            }
-                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    board[zrow][zcol]=null;
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                            else{
-                                                board[zrow][zcol] = board[lastRow][lastCol];
-                                                board[lastRow][lastCol] = null;
-                                                lastRow=0;
-                                                lastCol=0;
-                                                player1Turn=!player1Turn; 
-                                            }
-                                        }
-                                    }
-                                    else if(zcol > lastCol){
-                                        check = zcol - lastCol;
-                                        tempCheck = 0;
-                                        for(int index = lastCol + 1;index > lastCol && index < zcol;index ++){
-                                            if(board[zrow][index] == null){
-                                                tempCheck ++;
-                                            }
-                                        }
-                                        if(tempCheck == check - 1){
-                                            if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
-                                                
-                                                if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
-                                                    board[zrow][zcol] = board[lastRow][lastCol];
-                                                    board[lastRow][lastCol] = null;
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                                else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
-                                                    board[lastRow][lastCol] = null; 
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-
-
-                                            }
-                                            else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
-                                                    board[lastRow][lastCol] = null; 
-                                                    board[zrow][zcol]=null;
-                                                    lastRow=0;
-                                                    lastCol=0;
-                                                    player1Turn=!player1Turn;
-                                                }
-                                            else{
-                                                board[zrow][zcol] = board[lastRow][lastCol];
-                                                board[lastRow][lastCol] = null;
-                                                lastRow=0;
-                                                lastCol=0;
-                                                player1Turn=!player1Turn; 
-                                            }
-                                        }
+                                    else{
+                                        board[zrow][zcol] = board[lastRow][lastCol];
+                                        board[lastRow][lastCol] = null;
+                                        lastRow=0;
+                                        lastCol=0;
+                                        player1Turn=!player1Turn; 
+                                        board[zrow][zcol].setPickedUp(false);
                                     }
                                 }
                             }
-                            else if(((zrow == lastRow + 1 || zrow == lastRow - 1) && zcol == lastCol) || ((zcol == lastCol + 1 || zcol == lastCol - 1) && zrow == lastRow)){
-                                if(board[zrow][zcol]!=null && (board[zrow][zcol].getValue() != board[lastRow][lastCol].getValue())){
-                                    if(board[zrow][zcol].getValue()==Commander && board[lastRow][lastCol].getValue()==Spy){
-                                        board[zrow][zcol] = board[lastRow][lastCol];
-                                        board[lastRow][lastCol] = null;
-                                        lastRow=0;
-                                        lastCol=0;
-                                        player1Turn=!player1Turn;
-                                    }
-                                    else if(board[zrow][zcol].getValue() > board[lastRow][lastCol].getValue() && board[zrow][zcol].getValue()!=Bomb){
-                                        board[zrow][zcol] = board[lastRow][lastCol];
-                                        board[lastRow][lastCol] = null;
-                                        lastRow=0;
-                                        lastCol=0;
-                                        player1Turn=!player1Turn;
-                                    }
-                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()==Miner){
-                                        board[zrow][zcol] = board[lastRow][lastCol];
-                                        board[lastRow][lastCol] = null;
-                                        lastRow=0;
-                                        lastCol=0;
-                                        player1Turn=!player1Turn;
-                                    }
-                                    else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()<board[lastRow][lastCol].getValue()){
-                                        board[lastRow][lastCol] = null; 
-                                        lastRow=0;
-                                        lastCol=0;
-                                        player1Turn=!player1Turn;
-                                    }
-                                    else if(board[zrow][zcol].getValue()==Bomb && board[lastRow][lastCol].getValue()!=Miner){
-                                        board[lastRow][lastCol] = null; 
-                                        lastRow=0;
-                                        lastCol=0;
-                                        player1Turn=!player1Turn;
-                                    }
-                                    
-                                    
-                                }
-                                else if(board[zrow][zcol]!=null && board[zrow][zcol].getValue()==board[lastRow][lastCol].getValue()){
-                                        board[lastRow][lastCol] = null; 
-                                        board[zrow][zcol]=null;
-                                        lastRow=0;
-                                        lastCol=0;
-                                        player1Turn=!player1Turn;
-                                    }
-                                else{
-                                    board[zrow][zcol] = board[lastRow][lastCol];
-                                    board[lastRow][lastCol] = null;
-                                    lastRow=0;
-                                    lastCol=0;
-                                    player1Turn=!player1Turn; 
-                                }
+                        }
+
+                        System.out.println("zcol: "+zcol);
+                        System.out.println("zrow: "+zrow);
+
+
+                        if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb)
+                        {
+                            board[zrow][zcol].setPickedUp(true);
+                            lastCol = zcol;
+                            lastRow = zrow;
+                        }
+                        if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn && board[zrow][zcol].getValue() != Bomb)
+                        {
+                            board[zrow][zcol].setPickedUp(true);
+                            lastCol = zcol;
+                            lastRow = zrow;
+                        }
+
+                        if(player1Turn&&firstRedTurn){
+                            if(zrow==0){
+                                board[zrow][zcol] = new StrategoPiece(Color.red,Flag);
+                                firstRedTurn=!firstRedTurn;
+                                REDreset();
+                                player1Turn=!player1Turn;
+                                return;
                             }
                         }
-                    }
-                    
-                    System.out.println("zcol: "+zcol);
-                    System.out.println("zrow: "+zrow);
-                    
-                    
-                    if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb)
-                    {
-                        board[zrow][zcol].setPickedUp(true);
-                        lastCol = zcol;
-                        lastRow = zrow;
-                    }
-                    if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn && board[zrow][zcol].getValue() != Bomb)
-                    {
-                        board[zrow][zcol].setPickedUp(true);
-                        lastCol = zcol;
-                        lastRow = zrow;
-                    }
-                    
-                    if(player1Turn&&firstRedTurn){
-                        if(zrow==0){
-                            board[zrow][zcol] = new StrategoPiece(Color.red,Flag);
-                            firstRedTurn=!firstRedTurn;
-                            REDreset();
-                            player1Turn=!player1Turn;
-                            return;
+                        if(!player1Turn&&firstBluTurn){
+                            if(zrow==NUM_ROWS-1){
+                                board[zrow][zcol] = new StrategoPiece(Color.blue,Flag);
+                                firstBluTurn=!firstBluTurn;
+                                BLUreset();
+                                player1Turn=!player1Turn;
+                                return;
+                            }
                         }
+
                     }
-                    if(!player1Turn&&firstBluTurn){
-                        if(zrow==NUM_ROWS-1){
-                            board[zrow][zcol] = new StrategoPiece(Color.blue,Flag);
-                            firstBluTurn=!firstBluTurn;
-                            BLUreset();
-                            player1Turn=!player1Turn;
-                            return;
-                        }
-                    }
-                    
                 }
 
                 if (e.BUTTON3 == e.getButton()) {
@@ -479,6 +513,15 @@ public class stratego extends JFrame implements Runnable {
                 } else if (e.VK_DOWN == e.getKeyCode()) {
                 } else if (e.VK_LEFT == e.getKeyCode()) {
                 } else if (e.VK_RIGHT == e.getKeyCode()) {
+                }else if (e.VK_H == e.getKeyCode() && (start || pause)) {
+                    help=!help;
+                }else if (e.VK_S == e.getKeyCode() && start && !help) {
+                    start=!start;
+                }else if (e.VK_P == e.getKeyCode() && !start) {
+                    pause = !pause;
+                    if(help){
+                        help=!help;
+                    }
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
                     reset();
                 }
@@ -528,123 +571,146 @@ public class stratego extends JFrame implements Runnable {
 //Calculate the width and height of each board square.
         int ydelta = getHeight2()/NUM_ROWS;
         int xdelta = getWidth2()/NUM_COLUMNS;
-//draw board        
-        g.drawImage(bg,getX(0),getY(0),
-                getWidth2(),getHeight2(),this);
-        
- //draw grid
-        g.setColor(Color.black);
-        for (int zi = 1;zi<NUM_ROWS;zi++)
-        {
-            g.drawLine(getX(0),getY(zi*ydelta),
-                    getX(getWidth2()),getY(zi*ydelta));
-        }
-        
-        for (int zi = 1;zi<NUM_COLUMNS;zi++)
-        {
-            g.drawLine(getX(zi*xdelta),getY(0),
-                    getX(zi*xdelta),getY(getHeight2()));
-        }
-        
+//draw board
+        if(!start){
+            if(!pause){
+                g.drawImage(bg,getX(0),getY(0),
+                        getWidth2(),getHeight2(),this);
 
-//Draw the piece.
-        for (int zi = 0; zi < NUM_ROWS; zi++)
-        {
-            for (int zx = 0; zx < NUM_COLUMNS; zx++)
-            {
-                if (board[zi][zx]!=null){
-                    if(player1Turn==lastTurn){
-                        if(player1Turn){
-                        //red drawings
-                        if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redSergant,getX(zx * xdelta), getY(zi * ydelta),xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
-                            g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
-                        else if (board[zi][zx].getColor()==Color.red){
-                            g.setColor(board[zi][zx].getColor());
-                            g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
+         //draw grid
+                g.setColor(Color.black);
+                for (int zi = 1;zi<NUM_ROWS;zi++)
+                {
+                    g.drawLine(getX(0),getY(zi*ydelta),
+                            getX(getWidth2()),getY(zi*ydelta));
+                }
 
-                        //blu drawings
-                        if(!player1Turn){
-                        if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluSergant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
-                            g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                for (int zi = 1;zi<NUM_COLUMNS;zi++)
+                {
+                    g.drawLine(getX(zi*xdelta),getY(0),
+                            getX(zi*xdelta),getY(getHeight2()));
+                }
+
+
+        //Draw the piece.
+                for (int zi = 0; zi < NUM_ROWS; zi++)
+                {
+                    for (int zx = 0; zx < NUM_COLUMNS; zx++)
+                    {
+                        if (board[zi][zx]!=null){
+                            if(player1Turn==lastTurn){
+                                if(board[zi][zx].getPickedUp()){
+                                    g.setColor(Color.yellow);
+                                    g.fillRect(getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta);
+                                }
+                                if(player1Turn){
+                                //red drawings
+                                if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redSergant,getX(zx * xdelta), getY(zi * ydelta),xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.red)
+                                    g.drawImage(redFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                }
+                                else if (board[zi][zx].getColor()==Color.red){
+                                    g.setColor(board[zi][zx].getColor());
+                                    g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                }
+
+                                //blu drawings
+                                if(!player1Turn){
+                                if (board[zi][zx].getValue() == Commander && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluCommander,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == General && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluGeneral,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Leutenant && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluLeutenant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Captain && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluCaptain,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Sergant && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluSergant,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Gunny && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluGunny,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Scout && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluScout,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Miner && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluMiner,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Spy && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluSpy,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Bomb && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluBomb,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                if (board[zi][zx].getValue() == Flag && board[zi][zx].getColor() == Color.blue)
+                                    g.drawImage(bluFlag,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                }
+                                else if (board[zi][zx].getColor()==Color.blue){
+                                    g.setColor(board[zi][zx].getColor());
+                                    g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                                }
+
+                            }
+                            else if (board[zi][zx].getColor()==Color.red){
+                                    g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                            }
+                            else if (board[zi][zx].getColor()==Color.blue){
+                                    g.drawImage(bluTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
+                            }
+                        }   
+
+                }
+                }
+                if(player1Turn!=lastTurn){
+                        g.setColor(Color.yellow);
+                        g.setFont(new Font("Algerian",Font.CENTER_BASELINE,40));
+                        if (!lastTurn)
+                            g.drawString("Player 1's Turn in:",getX(getWidth2()/2 - 180),getYNormal((int)(getHeight2()/1.75)));
+                        if (lastTurn)
+                            g.drawString("Player 2's Turn in:",getX(getWidth2()/2 - 180),getYNormal((int)(getHeight2()/1.75)));
+                        g.setFont(new Font("Algerian",Font.CENTER_BASELINE,font));
+                        g.drawString(""+timer,getX(getWidth2()/2-(int)(font/2.5)),getYNormal((int)(getHeight2()/2.125)));
+
+                        if(timeCount % 100 == 99){
+                            if(timer<=1){
+                                lastTurn=player1Turn;
+                                timer=4;
+                                timeCount=0;
+                            }
+                            timer--;
+                            font=100;
                         }
-                        else if (board[zi][zx].getColor()==Color.blue){
-                            g.setColor(board[zi][zx].getColor());
-                            g.drawImage(bluTemplate, getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                        }
-                        
-                    }
-                    else if (board[zi][zx].getColor()==Color.red){
-                            g.drawImage(redTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                    }
-                    else if (board[zi][zx].getColor()==Color.blue){
-                            g.drawImage(bluTemplate,getX(zx * xdelta), getY(zi * ydelta), xdelta, ydelta, this);
-                    }
-                }   
+                        timeCount++;
+                        font--;
+                }
             }
         }
-        if(player1Turn!=lastTurn){
-                g.setColor(Color.yellow);
-                g.setFont(new Font("Harlow Solid Italic",Font.CENTER_BASELINE,40));
-                if (!lastTurn)
-                    g.drawString("Player 1's Turn in:",getX(getWidth2()/2 - 180),getYNormal((int)(getHeight2()/1.75)));
-                if (lastTurn)
-                    g.drawString("Player 2's Turn in:",getX(getWidth2()/2 - 180),getYNormal((int)(getHeight2()/1.75)));
-                g.setFont(new Font("Harlow Solid Italic",Font.CENTER_BASELINE,font));
-                g.drawString(""+timer,getX(getWidth2()/2-(int)(font/2.5)),getYNormal((int)(getHeight2()/2.125)));
-                
-                if(timeCount % 100 == 99){
-                    if(timer<=1){
-                        lastTurn=player1Turn;
-                        timer=4;
-                        timeCount=0;
-                    }
-                    timer--;
-                    font=100;
-                }
-                timeCount++;
-                font--;
+        if(start && !help){
+        g.drawImage(sc,getX(0),getY(0),
+                getWidth2(),getHeight2(),this);
+        }
+        if(pause){
+            g.drawImage(helpBackround,getX(0),getY(0),
+                getWidth2(),getHeight2(),this);
+        }
+        if(help){
+            g.drawImage(helpBackround,getX(0),getY(0),
+                getWidth2(),getHeight2(),this);
+            g.drawImage(helpMenu,getX(0),getY(0),
+                getWidth2(),getHeight2(),this); 
         }
 //         g.drawImage(sc,getX(0),getY(0),
 //            getWidth2(),getHeight2(),this);
@@ -664,7 +730,7 @@ public class stratego extends JFrame implements Runnable {
             }
         }
     }
-
+  
     public void reset() {
 
         for (int zi = 0;zi<NUM_ROWS;zi++)
@@ -711,6 +777,9 @@ public class stratego extends JFrame implements Runnable {
         font=100;
         firstRedTurn=true;
         firstBluTurn=true;
+        start = true;
+        help = false;
+        pause = false;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
