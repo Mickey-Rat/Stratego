@@ -61,7 +61,7 @@ public class stratego extends JFrame implements Runnable {
     final int Spy = 9;
     final int Bomb = 10;
     final int Flag = 11;
-    final int lakeTile = 13;
+//    final int lakeTile = 13;
     int lastRow;
     int lastCol;
     int timer;
@@ -105,11 +105,13 @@ public class stratego extends JFrame implements Runnable {
     
     //soundsand stuff
     sound bgsound=null;
+    sound zsound=null;
     boolean start;
     boolean help;
     boolean pause;
     boolean gameOver;
-    boolean player1Win;
+    int winVal;
+    int gameOverSound;
     
     
     public static void main(String[] args) {
@@ -132,6 +134,11 @@ public class stratego extends JFrame implements Runnable {
                         return;
                     }
                     
+                    zsound = new sound("click.wav");
+                    if(gameOver)
+                    {
+                        zsound = new sound("march.wav");
+                    }
 //Calculate the width and height of each board square.
                     int ydelta = getHeight2()/NUM_ROWS;
                     int xdelta = getWidth2()/NUM_COLUMNS;
@@ -1003,10 +1010,16 @@ public class stratego extends JFrame implements Runnable {
         if(gameOver){
             g.setColor(Color.yellow);
             g.setFont(new Font("Algerian",Font.CENTER_BASELINE,40));
-            if (player1Win)
+            if (winVal==1)
                 g.drawString("Player 1 Wins!",getX(getWidth2()/2-180),getYNormal((int)(getHeight2()/2.125)));
-            if (!player1Win)
+            if (winVal==2)
                 g.drawString("Player 2 Wins!",getX(getWidth2()/2-180),getYNormal((int)(getHeight2()/2.125)));
+            if (winVal==3)
+                g.drawString("Player 2 Surrenders!",getX(getWidth2()/2-260),getYNormal((int)(getHeight2()/2.125)));
+            if (winVal==4)
+                g.drawString("Player 1 Surrenders!",getX(getWidth2()/2-260),getYNormal((int)(getHeight2()/2.125)));
+            if (winVal==5)
+                g.drawString("Its a Draw. . .",getX(getWidth2()/2-180),getYNormal((int)(getHeight2()/2.125)));
             g.setFont(new Font("Algerian",Font.CENTER_BASELINE,font));
             g.drawString("GameOver",getX(getWidth2()/2 - 315),getYNormal((int)(getHeight2()/1.75)));
             if(gameOverTime % 700 == 699){
@@ -1090,18 +1103,24 @@ public class stratego extends JFrame implements Runnable {
         bluFlagzi=0;
         bluFlagzx=0;
         gameOver = false;
-        player1Win = true;
-        //lake1
-        board[2][4]=new StrategoPiece(null,lakeTile);
-        board[3][4]=new StrategoPiece(null,lakeTile);
-        board[2][5]=new StrategoPiece(null,lakeTile);
-        board[3][5]=new StrategoPiece(null,lakeTile);
+        winVal = 0;
+        gameOverSound=0;
+//        //lake1
+//        board[2][4]=new StrategoPiece(null,lakeTile);
+//        board[3][4]=new StrategoPiece(null,lakeTile);
+//        board[2][5]=new StrategoPiece(null,lakeTile);
+//        board[3][5]=new StrategoPiece(null,lakeTile);
+//        
+//        //lake2
+//        board[6][4]=new StrategoPiece(null,lakeTile);
+//        board[7][4]=new StrategoPiece(null,lakeTile);
+//        board[6][5]=new StrategoPiece(null,lakeTile);
+//        board[7][5]=new StrategoPiece(null,lakeTile);
         
-        //lake2
-        board[6][4]=new StrategoPiece(null,lakeTile);
-        board[7][4]=new StrategoPiece(null,lakeTile);
-        board[6][5]=new StrategoPiece(null,lakeTile);
-        board[7][5]=new StrategoPiece(null,lakeTile);
+//        board[7][5]=new StrategoPiece(Color.red,Scout);
+//        board[7][4]=new StrategoPiece(Color.blue,Scout);
+        if(bgsound!=null && !gameOver)
+            bgsound.pausePlaying=false;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -1114,7 +1133,9 @@ public class stratego extends JFrame implements Runnable {
             }
 
             reset();
-            bgsound = new sound("fates.wav");
+            
+            bgsound = new sound("cis.wav");
+            bgsound.pausePlaying=false;
         }
         boolean redFlagThere = false;
         boolean bluFlagThere = false;
@@ -1170,18 +1191,59 @@ public class stratego extends JFrame implements Runnable {
                         if(board[zi][zx].getColor()==Color.red){
                             if(zi<=3){
                                 gameOver = true;
-                                player1Win = true;
+                                winVal = 1;
                             }
                         }
                         if(board[zi][zx].getColor()==Color.blue){
                             if(zi>=6){
                                 gameOver = true;
-                                player1Win = false;
+                                winVal = 2;
                             }
                         }
                     }
                 }
             }
+        }
+        if(!firstRedTurn && !firstBluTurn){
+            int redCheck = 0;
+            int bluCheck = 0;
+            for (int zi = 0; zi < NUM_ROWS; zi++)
+            {
+                for (int zx = 0; zx < NUM_COLUMNS; zx++)
+                {
+                    if(board[zi][zx]!=null){
+                        if(board[zi][zx].getColor()==Color.red && board[zi][zx].getValue()!=Flag){
+                            redCheck++;
+                        }
+                        if(board[zi][zx].getColor()==Color.blue && board[zi][zx].getValue()!=Flag){
+                            bluCheck++;
+                        }
+                    }
+                }
+            }
+            if(redCheck==0 && bluCheck==0){
+                gameOver = true;
+                winVal = 5;
+            }
+            if(redCheck==0 && bluCheck>0){
+                gameOver = true;
+                winVal = 4;
+            }
+            if(redCheck>0 && bluCheck==0){
+                gameOver = true;
+                winVal = 3;
+            }
+        }
+        
+        if(gameOver && gameOverSound==0){
+            bgsound.pausePlaying=true;
+            zsound = new sound("march.wav");
+            gameOverSound++;
+        }
+        
+        if(bgsound.donePlaying){
+            bgsound.pausePlaying=false;
+            bgsound = new sound("fates.wav");
         }
     }
 ////////////////////////////////////////////////////////////////////////////

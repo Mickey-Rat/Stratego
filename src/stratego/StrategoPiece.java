@@ -12,6 +12,7 @@ public class StrategoPiece {
         color = _color;
         val = _unitNum;
         pickUp = false;
+        HasFlag = false;
     }
     public void setColor(Color _color)
     {
