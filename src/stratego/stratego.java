@@ -25,6 +25,7 @@ public class stratego extends JFrame implements Runnable {
     static final int XBORDER = 20;
     static final int YBORDER = 20;
     static final int YTITLE = 25;
+    //DO NOT CHANGE THE DIMENSIONS OF THE BOARD!!! 1040x1040
     static final int WINDOW_WIDTH = 1040;
     static final int WINDOW_HEIGHT = 1040;    
     boolean animateFirstTime = true;
@@ -35,7 +36,8 @@ public class stratego extends JFrame implements Runnable {
     static Image icon = Toolkit.getDefaultToolkit().getImage("./flag.GIF");
     static Image bg = Toolkit.getDefaultToolkit().getImage("./board 2.PNG");
     static Image sc = Toolkit.getDefaultToolkit().getImage("./Start Screen.PNG");
-    static Image helpBackround = Toolkit.getDefaultToolkit().getImage("./pigeonexplosion.GIF");
+    static Image helpBackround = Toolkit.getDefaultToolkit().getImage("./new flag.PNG");
+    static Image pauseBackround = Toolkit.getDefaultToolkit().getImage("./pauseScreen.PNG");
     static Image helpMenu = Toolkit.getDefaultToolkit().getImage("./help menu.GIF");
     
     boolean player1Turn;
@@ -103,7 +105,7 @@ public class stratego extends JFrame implements Runnable {
     int bluFlagzi;
     int bluFlagzx;
     
-    //soundsand stuff
+    //sounds and stuff
     sound bgsound=null;
     sound zsound=null;
     boolean start;
@@ -113,6 +115,15 @@ public class stratego extends JFrame implements Runnable {
     int winVal;
     int gameOverSound;
     
+    //menu buttons
+    final int startXint=351;
+    final int startYint=376;
+    final int startXend=636;
+    final int startYend=523;
+    final int sHelpXint=324;
+    final int sHelpYint=581;
+    final int sHelpXend=668;
+    final int sHelpYend=709;
     
     public static void main(String[] args) {
         stratego frame = new stratego();
@@ -130,15 +141,9 @@ public class stratego extends JFrame implements Runnable {
                 
    
                 if (e.BUTTON1 == e.getButton() ) {
-                    if(player1Turn!=lastTurn){
-                        return;
-                    }
                     
-                    zsound = new sound("click.wav");
-                    if(gameOver)
-                    {
-                        zsound = new sound("march.wav");
-                    }
+                    
+                    
 //Calculate the width and height of each board square.
                     int ydelta = getHeight2()/NUM_ROWS;
                     int xdelta = getWidth2()/NUM_COLUMNS;
@@ -176,7 +181,25 @@ public class stratego extends JFrame implements Runnable {
                             zrow++;
                     
                     }
+                    System.out.println("x: "+xpos);
+                    System.out.println("y: "+ypos);
+                    if(start && xpos>=startXint && xpos<=startXend
+                            && ypos>=startYint && ypos<=startYend){
+                        start=false;
+                    }
+                    if(start && xpos>=sHelpXint && xpos<=sHelpXend
+                            && ypos>=sHelpYint && ypos<=sHelpYend){
+                        help=true;
+                    }
                     if(!start){
+                        if(player1Turn!=lastTurn){
+                            return;
+                        }
+                        zsound = new sound("click.wav");
+                        if(gameOver)
+                        {
+                            zsound = new sound("march.wav");
+                        }
                         if(board[lastRow][lastCol]!=null)
                         {
                             if(board[zrow][zcol]==null || board[zrow][zcol].getColor() != board[lastRow][lastCol].getColor()){
@@ -732,6 +755,7 @@ public class stratego extends JFrame implements Runnable {
                         System.out.println("zrow: "+zrow);
 
 
+
                         if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb)
                         {
                             board[zrow][zcol].setPickedUp(true);
@@ -998,7 +1022,7 @@ public class stratego extends JFrame implements Runnable {
                 getWidth2(),getHeight2(),this);
         }
         if(pause){
-            g.drawImage(helpBackround,getX(0),getY(0),
+            g.drawImage(pauseBackround,getX(0),getY(0),
                 getWidth2(),getHeight2(),this);
         }
         if(help){
@@ -1027,6 +1051,8 @@ public class stratego extends JFrame implements Runnable {
             }
             gameOverTime++;
         }
+//        g.setColor(Color.red);
+//        g.fillRect(324, 581, 344, 128);
 //         g.drawImage(sc,getX(0),getY(0),
 //            getWidth2(),getHeight2(),this);
         gOld.drawImage(image, 0, 0, null);
