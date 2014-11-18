@@ -124,6 +124,14 @@ public class stratego extends JFrame implements Runnable {
     final int sHelpYint=581;
     final int sHelpXend=668;
     final int sHelpYend=709;
+    final int helpXint = 877;
+    final int helpYint = 927;
+    final int helpXend = 979;
+    final int helpYend = 984;
+    final int pendXint = 552;
+    final int pendYint = 930;
+    final int pendXend = 893;
+    final int pendYend = 997;
     
     public static void main(String[] args) {
         stratego frame = new stratego();
@@ -181,8 +189,8 @@ public class stratego extends JFrame implements Runnable {
                             zrow++;
                     
                     }
-                    System.out.println("x: "+xpos);
-                    System.out.println("y: "+ypos);
+//                    System.out.println("x: "+xpos);
+//                    System.out.println("y: "+ypos);
                     if(start && xpos>=startXint && xpos<=startXend
                             && ypos>=startYint && ypos<=startYend){
                         start=false;
@@ -190,6 +198,14 @@ public class stratego extends JFrame implements Runnable {
                     if(start && xpos>=sHelpXint && xpos<=sHelpXend
                             && ypos>=sHelpYint && ypos<=sHelpYend){
                         help=true;
+                    }
+                    if(help && xpos>=helpXint && xpos<=helpXend
+                            && ypos>=helpYint && ypos<=helpYend){
+                        help=false;
+                    }
+                    if(pause && xpos>=pendXint && xpos<=pendXend
+                            && ypos>=pendYint && ypos<=pendYend){
+                        reset();
                     }
                     if(!start){
                         if(player1Turn!=lastTurn){
@@ -751,19 +767,25 @@ public class stratego extends JFrame implements Runnable {
                             }
                         }
 
-                        System.out.println("zcol: "+zcol);
-                        System.out.println("zrow: "+zrow);
+//                        System.out.println("zcol: "+zcol);
+//                        System.out.println("zrow: "+zrow);
 
 
 
-                        if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb)
+                        if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.red && player1Turn && board[zrow][zcol].getValue() != Bomb && board[zrow][zcol].getValue()!=Flag)
                         {
+                            if(board[lastRow][lastCol]!=null&& board[lastRow][lastCol].getPickedUp()){
+                                board[lastRow][lastCol].setPickedUp(false);
+                            }
                             board[zrow][zcol].setPickedUp(true);
                             lastCol = zcol;
                             lastRow = zrow;
                         }
-                        if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn && board[zrow][zcol].getValue() != Bomb)
+                        if(board[zrow][zcol]!=null && board[zrow][zcol].getColor() == Color.blue && !player1Turn && board[zrow][zcol].getValue() != Bomb && board[zrow][zcol].getValue()!=Flag)
                         {
+                            if(board[lastRow][lastCol]!=null&& board[lastRow][lastCol].getPickedUp()){
+                                board[lastRow][lastCol].setPickedUp(false);
+                            }
                             board[zrow][zcol].setPickedUp(true);
                             lastCol = zcol;
                             lastRow = zrow;
@@ -832,7 +854,9 @@ public class stratego extends JFrame implements Runnable {
                         help=!help;
                     }
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
-                    reset();
+                    if(pause || help){
+                        reset();
+                    }
                 }
                 repaint();
             }
@@ -1051,10 +1075,6 @@ public class stratego extends JFrame implements Runnable {
             }
             gameOverTime++;
         }
-//        g.setColor(Color.red);
-//        g.fillRect(324, 581, 344, 128);
-//         g.drawImage(sc,getX(0),getY(0),
-//            getWidth2(),getHeight2(),this);
         gOld.drawImage(image, 0, 0, null);
     }
 ////////////////////////////////////////////////////////////////////////////
@@ -1131,20 +1151,8 @@ public class stratego extends JFrame implements Runnable {
         gameOver = false;
         winVal = 0;
         gameOverSound=0;
-//        //lake1
-//        board[2][4]=new StrategoPiece(null,lakeTile);
-//        board[3][4]=new StrategoPiece(null,lakeTile);
-//        board[2][5]=new StrategoPiece(null,lakeTile);
-//        board[3][5]=new StrategoPiece(null,lakeTile);
-//        
-//        //lake2
-//        board[6][4]=new StrategoPiece(null,lakeTile);
-//        board[7][4]=new StrategoPiece(null,lakeTile);
-//        board[6][5]=new StrategoPiece(null,lakeTile);
-//        board[7][5]=new StrategoPiece(null,lakeTile);
-        
-//        board[7][5]=new StrategoPiece(Color.red,Scout);
-//        board[7][4]=new StrategoPiece(Color.blue,Scout);
+//        board[0][0]=new StrategoPiece(Color.red,Commander);
+//        board[7][2]=new StrategoPiece(Color.blue,Scout);
         if(bgsound!=null && !gameOver)
             bgsound.pausePlaying=false;
     }
