@@ -114,6 +114,7 @@ public class stratego extends JFrame implements Runnable {
     boolean gameOver;
     int winVal;
     int gameOverSound;
+    int song=0;
     
     //menu buttons
     final int startXint=351;
@@ -1155,6 +1156,7 @@ public class stratego extends JFrame implements Runnable {
 //        board[7][2]=new StrategoPiece(Color.blue,Scout);
         if(bgsound!=null && !gameOver)
             bgsound.pausePlaying=false;
+        
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -1170,6 +1172,7 @@ public class stratego extends JFrame implements Runnable {
             
             bgsound = new sound("cis.wav");
             bgsound.pausePlaying=false;
+            song=1;
         }
         boolean redFlagThere = false;
         boolean bluFlagThere = false;
@@ -1275,9 +1278,20 @@ public class stratego extends JFrame implements Runnable {
             gameOverSound++;
         }
         
-        if(bgsound.donePlaying){
+        if(bgsound.donePlaying && song==0){
+            bgsound.pausePlaying=false;
+            bgsound = new sound("cis.wav");
+            song=1;
+        }
+        if(bgsound.donePlaying && song==1){
+            bgsound.pausePlaying=false;
+            bgsound = new sound("valkries.wav");
+            song=2;
+        }
+        if(bgsound.donePlaying && song==2){
             bgsound.pausePlaying=false;
             bgsound = new sound("fates.wav");
+            song=0;
         }
     }
 ////////////////////////////////////////////////////////////////////////////
